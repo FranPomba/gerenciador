@@ -32,3 +32,4 @@ build/
 
 # Outros
 composer.lock
+vendor

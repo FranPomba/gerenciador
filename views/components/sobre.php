@@ -1,6 +1,6 @@
 <?php
 $items = [
-    ['href' => '#', 'src' => '', 'alt' =>  'GitHub'],
+    ['href' => '#', 'src' => '/public/img/redes_sociais/github_git_icon_145985.ico', 'alt' =>  'GitHub'],
     ['href' => '#', 'src' => '/public/img/redes_sociais/LinkedIn.ico', 'alt' =>  'LinkedIn'],
     ['href' => '#', 'src' => '/public/img/redes_sociais/Twitter-blueberry.ico', 'alt' =>  'Twitter'],
     ['href' => '#', 'src' => '/public/img/redes_sociais/Facebook-blueberry.ico', 'alt' =>  'Facebook']
