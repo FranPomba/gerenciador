@@ -9,8 +9,7 @@ tailwind.config.js
 postcss.config.js
 
 # Cache e arquivos gerados
-public/css/*.css
-public/js/*.js
+public/*
 *.log
 *.cache
 
