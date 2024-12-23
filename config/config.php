@@ -2,6 +2,6 @@
 return [
     'host' => 'localhost',
     'user' => 'root',
-    'password' => 'senha',
-    'dbname' => 'gestao_projetos',
+    'password' => 'root',
+    'dbname' => 'gerenciador_projetos',
 ];
