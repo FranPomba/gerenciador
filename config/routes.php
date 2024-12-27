@@ -8,6 +8,8 @@ use Pecee\SimpleRouter\SimpleRouter;
 SimpleRouter::setDefaultNamespace('controllers');
 
 SimpleRouter::get('/', 'ProjectController@index');
+SimpleRouter::get('/project','ProjectController@create');
+SimpleRouter::post('/project', 'ProjectController@create');
 
 
 SimpleRouter::start();

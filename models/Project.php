@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../config/database.php";
+
 use config\DataBase;
 
 class Project
@@ -13,7 +14,7 @@ class Project
 
     public function create($params)
     {
-        $query = "INSERT INTO Project (titulo, descricao, ano, finalizado, img ) values (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO Projects (titulo, descricao, ano, status, img ) values (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $params["titulo"], PDO::PARAM_STR);
         $stmt->bindParam(2, $params["descricao"], PDO::PARAM_STR);
@@ -24,7 +25,7 @@ class Project
     }
     public function update($params, $id)
     {
-        $query = "UPDATE Project SET titulo=?, descricao=?, ano=?, finalizado=?, img=? WHERE id=?";
+        $query = "UPDATE Projects SET titulo=?, descricao=?, ano=?, finalizado=?, img=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $params["titulo"], PDO::PARAM_STR);
         $stmt->bindParam(2, $params["descricao"], PDO::PARAM_STR);
@@ -37,7 +38,7 @@ class Project
 
     public function delete($id)
     {
-        $query = "DELETE FROM Project WHERE id=?";
+        $query = "DELETE FROM Projects WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -76,11 +77,11 @@ class Project
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function get($id){
+    public function get($id)
+    {
         $query = "SELECT * FROM Projects where=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 }

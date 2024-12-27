@@ -1,11 +1,11 @@
-<?php
-$items = [
-    ['href' => '#', 'src' => '/public/img/redes_sociais/github_git_icon_145985.ico', 'alt' =>  'GitHub'],
-    ['href' => '#', 'src' => '/public/img/redes_sociais/LinkedIn.ico', 'alt' =>  'LinkedIn'],
-    ['href' => '#', 'src' => '/public/img/redes_sociais/Twitter-blueberry.ico', 'alt' =>  'Twitter'],
-    ['href' => '#', 'src' => '/public/img/redes_sociais/Facebook-blueberry.ico', 'alt' =>  'Facebook']
-]
-?>
+{%
+    set items = [
+        {'href' : '#', 'src' : '/public/img/redes_sociais/github_git_icon_145985.ico', 'alt' :  'GitHub'},
+        {'href' : '#', 'src' : '/public/img/redes_sociais/LinkedIn.ico', 'alt' :  'LinkedIn'},
+        {'href' : '#', 'src' : '/public/img/redes_sociais/Twitter-blueberry.ico', 'alt' :  'Twitter'},
+        {'href' : '#', 'src' : '/public/img/redes_sociais/Facebook-blueberry.ico', 'alt' :  'Facebook'}
+    ]
+%}
 <section class="flex gap-x-3">
     <div class="w-2/3">
         <h1 class="text-3xl font-bold">Olá, eu sou o Francisco!</h1>
@@ -13,10 +13,10 @@ $items = [
             Programo em PHP e HTML bem como possuo conhecimento de outras linguagens como Python e JavaScript.
         </p>
         <ul class="flex gap-x-3 mt-3">
-            <?php foreach ($items as $item): ?>
-                <li><a target="_blank" href="<?= $item['href'] ?>"><img class="h-8 hover:animate-bounce"
-                            src="<?= $item['src'] ?>" alt="<?= $item['alt'] ?>"></a></li>
-            <?php endforeach ?>
+            {% for item in items %}
+            <li><a target="_blank" href="{{item.href}}"><img class="h-8 hover:animate-bounce"
+                        src="{{item.src}}" alt="{{item.alt}}"></a></li>
+            {% endfor %}
         </ul>
     </div>
     <div class="w-1/3 ">
