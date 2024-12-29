@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="{{url('public/css/styles.css')}}">
     <title>Gestor De Projetos</title>
 </head>
 
@@ -11,8 +11,17 @@
     {% include 'components/headers.php' %}
     <main class="mx-auto max-w-screen-lg min-h-20 px-3 py-6 gap-y-6">
         {% block  main %}
-            {% include 'components/sobre.php' %}
-            {% include 'components/projetos.php' %}
+        {% if success %}
+        <div class="text-gray-300 bg-green-400">
+            <p class="flex items-center justify-center">
+                <span class="bg-green-600 ">
+                    {{success}}
+                </span>
+            </p>
+        </div>
+        {% endif%}
+        {% include 'components/sobre.php' %}
+        {% include 'components/projetos.php' %}
         {%endblock%}
     </main>
     {% include 'components/footer.php'%}

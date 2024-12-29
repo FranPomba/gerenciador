@@ -25,7 +25,7 @@ class Project
     }
     public function update($params, $id)
     {
-        $query = "UPDATE Projects SET titulo=?, descricao=?, ano=?, finalizado=?, img=? WHERE id=?";
+        $query = "UPDATE Projects SET titulo=?, descricao=?, ano=?, status=?, img=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $params["titulo"], PDO::PARAM_STR);
         $stmt->bindParam(2, $params["descricao"], PDO::PARAM_STR);
@@ -77,11 +77,16 @@ class Project
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function get($id)
+    public function get(int $id): array
     {
-        $query = "SELECT * FROM Projects where=?";
+        $query = "SELECT * FROM Projects where id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result === false) {
+            throw new \Exception("Projeto com ID $id não encontrado.");
+        }
+        return $result;
     }
 }
