@@ -3,7 +3,7 @@
 <form action="" method="post" class="max-w-lg mx-auto p-6 rounded-lg shadow-md">
     <div class="flex flex-col gap-4">
         <div>
-            <label for="nome" class="block text-sm font-medium text-gray-300 mb-1">Nome:</label>
+            <label for="nome" class="block text-sm font-medium text-gray-300 mb-1">Titulo:</label>
             <input
                 type="text"
                 id="titulo"

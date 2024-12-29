@@ -7,6 +7,8 @@ require_once __DIR__ . "/../models/Project.php";
 use controllers\Controller;
 use PDOException;
 use Project;
+use ProjectStask;
+use Stask;
 
 class ProjectController extends Controller
 {
@@ -24,7 +26,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $project = new Project();
+       
         if (isset($_POST['submit'])) {
             $titulo = $_POST['titulo'] ?? null;
             $desc = $_POST['descricao'] ?? null;
@@ -36,8 +38,8 @@ class ProjectController extends Controller
             }
             $dados = ['titulo' => $titulo, 'descricao' => $desc, 'ano' => $ano, 'status' => $status,  'img' => $img];
             try {
-                $project->create($dados);
-                header('Location: /');
+                $project = (new Project())->create($dados);
+               $this->detail($project['id']);
             } catch (PDOException $ex) {
                 echo 'Erro ao inserir projecto ' . $ex->getMessage();
             }
@@ -74,7 +76,7 @@ class ProjectController extends Controller
 
             try {
                 $project->update($dados, $id);
-                header('Location: /');
+                $this->detail($id);
             } catch (\PDOException $ex) {
                 echo 'Erro ao atualizar o projeto: ' . $ex->getMessage();
             }
@@ -114,5 +116,21 @@ class ProjectController extends Controller
             return false;
         }
         return true;
+    }
+
+    public function addStack($id){
+        if(isset($_POST['submit'])){
+            $stacks = $_POST['tecnologias'];
+            if(!empty($stacks)){
+                 $res = new ProjectStask();
+                foreach ($stacks as $stack) {
+                 $res->create($id, $stack);
+                }
+            }
+        } else{
+            $stacks = (new Stask())->getAll();
+            $project = (new Project())->get($id);
+            $this->render("stack/index", ['project' => $project, 'stacks' => $stacks]);
+        }
     }
 }

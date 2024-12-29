@@ -12,7 +12,9 @@ class Stask{
         $query = 'INSERT INTO stasks (nome) values(?)';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $nome, PDO::PARAM_STR);
-        return $stmt->execute();
+        $stmt->execute();
+        $id = $this->conn->lastInsertId();
+        return $this->get($id);
     }
     public function get($id){
         $query = 'SELECT * FROM stasks where id=?';
@@ -30,7 +32,8 @@ class Stask{
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $nome, PDO::PARAM_STR);
         $stmt->bindParam(2, $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        $stmt->execute();
+        return $this->get($id);
     }
 
     public function delete($id){
@@ -38,5 +41,12 @@ class Stask{
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    public function getAll(){
+        $query = "SELECT * FROM stacks";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

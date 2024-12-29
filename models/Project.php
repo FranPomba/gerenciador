@@ -21,7 +21,9 @@ class Project
         $stmt->bindParam(3, $params["ano"], PDO::PARAM_INT);
         $stmt->bindParam(4, $params["status"], PDO::PARAM_BOOL);
         $stmt->bindParam(5, $params["img"], PDO::PARAM_STR);
-        return $stmt->execute();
+        $stmt->execute();
+        $id = $this->conn->lastInsertId();
+        return $this->get($id);
     }
     public function update($params, $id)
     {
