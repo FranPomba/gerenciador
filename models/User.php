@@ -5,6 +5,7 @@ namespace models;
 require_once __DIR__ . "/../config/database.php";
 
 use config\DataBase;
+use PDO;
 
 class User
 {

@@ -14,4 +14,6 @@ SimpleRouter::get('/project/{id}/edit','ProjectController@update');
 SimpleRouter::post('/project/{id}/edit','ProjectController@update');
 SimpleRouter::post('/project/{id}/delete','ProjectController@delete');
 SimpleRouter::get('/project/{id}','ProjectController@detail');
+SimpleRouter::post('/project/{id}/stacks', 'ProjectController@addStack');
+SimpleRouter::get('/project/{id}/stacks', 'ProjectController@addStack');
 SimpleRouter::start();

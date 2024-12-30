@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use Stask;
+use models\Stask;
 
 class StackController extends Controller
 {

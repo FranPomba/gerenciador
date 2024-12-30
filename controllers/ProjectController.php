@@ -3,12 +3,16 @@
 namespace controllers;
 
 require_once __DIR__ . "/../models/Project.php";
+require_once __DIR__ . "/../models/ProjectStack.php";
+require_once __DIR__ . "/../models/Stack.php";
 
 use controllers\Controller;
+use Helpers;
+use model\Project;
+use model\ProjectStask;
+use model\Stask;
 use PDOException;
-use Project;
-use ProjectStask;
-use Stask;
+
 
 class ProjectController extends Controller
 {
@@ -26,7 +30,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-       
+
         if (isset($_POST['submit'])) {
             $titulo = $_POST['titulo'] ?? null;
             $desc = $_POST['descricao'] ?? null;
@@ -39,7 +43,7 @@ class ProjectController extends Controller
             $dados = ['titulo' => $titulo, 'descricao' => $desc, 'ano' => $ano, 'status' => $status,  'img' => $img];
             try {
                 $project = (new Project())->create($dados);
-               $this->detail($project['id']);
+                $this->addStack($project['id']);
             } catch (PDOException $ex) {
                 echo 'Erro ao inserir projecto ' . $ex->getMessage();
             }
@@ -76,7 +80,7 @@ class ProjectController extends Controller
 
             try {
                 $project->update($dados, $id);
-                $this->detail($id);
+                Helpers::redirecionar("project/$id/stacks");
             } catch (\PDOException $ex) {
                 echo 'Erro ao atualizar o projeto: ' . $ex->getMessage();
             }
@@ -118,19 +122,25 @@ class ProjectController extends Controller
         return true;
     }
 
-    public function addStack($id){
-        if(isset($_POST['submit'])){
-            $stacks = $_POST['tecnologias'];
-            if(!empty($stacks)){
-                 $res = new ProjectStask();
+    public function addStack($id)
+    {
+        $stacks = $_POST['tecnologias'];
+        $projStack = new ProjectStask();
+        if (isset($_POST['submit']) and is_array($stacks)) {
+            
+            if (!empty($stacks)) {
                 foreach ($stacks as $stack) {
-                 $res->create($id, $stack);
+                    if(!$projStack->exist($id, $stack)){
+                        $projStack->create($id, $stack);
+                    }
                 }
             }
-        } else{
+        } else {
             $stacks = (new Stask())->getAll();
             $project = (new Project())->get($id);
-            $this->render("stack/index", ['project' => $project, 'stacks' => $stacks]);
+            $list_stacks = array_map(fn($stack) => $stack['stack_id'], $projStack->getByProject($id));
+            var_dump($list_stacks);
+            $this->render("stack/index.php", ['project' => $project, 'stacks' => $stacks, 'list_stacks'=> $list_stacks]);
         }
     }
 }

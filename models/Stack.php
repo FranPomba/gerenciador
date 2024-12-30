@@ -1,7 +1,9 @@
 <?php
+namespace model;
 require_once __DIR__ . "/../config/database.php";
 
 use config\DataBase;
+use PDO;
 class Stask{
     private $conn;
     public function __construct() {
