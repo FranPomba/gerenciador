@@ -24,7 +24,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projeto = new Project();
-        $dados = $projeto->getAllProjects();
+        $dados = $projeto->getProjects();
         $this->render('project/index.php', ['projects' => $dados]);
     }
 

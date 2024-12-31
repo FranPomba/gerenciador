@@ -1,5 +1,7 @@
 <?php
+
 namespace model;
+
 require_once __DIR__ . "/../config/database.php";
 
 use config\DataBase;
@@ -91,5 +93,9 @@ class Project
             throw new \Exception("Projeto com ID $id não encontrado.");
         }
         return $result;
+    }
+    public function getProjects()
+    {
+        
     }
 }
