@@ -3,6 +3,7 @@
     {'href': '#', 'texto': 'GitHub'},
     {'href': '#', 'texto': 'LinkedIn'},
     {'href': '#', 'texto': 'Twitter'}
+    {'href': "#" texto: 'sobre-mim'}
 ] %}
 
 <header class="mx-auto max-w-screen-lg items-center justify-between px-3 py-6 flex">
