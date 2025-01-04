@@ -12,7 +12,7 @@ class Project
     private $conn;
     public function __construct()
     {
-        $this->conn = (new DataBase())->getConnection();
+        $this->conn = (new DataBase())->connectSQLite();
     }
 
     public function create($params)
@@ -22,7 +22,7 @@ class Project
         $stmt->bindParam(1, $params["titulo"], PDO::PARAM_STR);
         $stmt->bindParam(2, $params["descricao"], PDO::PARAM_STR);
         $stmt->bindParam(3, $params["ano"], PDO::PARAM_INT);
-        $stmt->bindParam(4, $params["status"], PDO::PARAM_BOOL);
+        $stmt->bindParam(4, $params["status"], PDO::PARAM_STR);
         $stmt->bindParam(5, $params["img"], PDO::PARAM_STR);
         $stmt->execute();
         $id = $this->conn->lastInsertId();
@@ -35,7 +35,7 @@ class Project
         $stmt->bindParam(1, $params["titulo"], PDO::PARAM_STR);
         $stmt->bindParam(2, $params["descricao"], PDO::PARAM_STR);
         $stmt->bindParam(3, $params["ano"], PDO::PARAM_INT);
-        $stmt->bindParam(4, $params["status"], PDO::PARAM_BOOL);
+        $stmt->bindParam(4, $params["status"], PDO::PARAM_STR);
         $stmt->bindParam(5, $params["img"], PDO::PARAM_STR);
         $stmt->bindParam(6, $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -51,7 +51,7 @@ class Project
 
     public function getAllProjects()
     {
-        $query = "SELECT * FROM Projects";
+        $query = "SELECT * FROM projects";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,6 +96,6 @@ class Project
     }
     public function getProjects()
     {
-        
+        $query = "SELECT id, titulo, nome, stack_id, descricao, img, ano,  FROM projects";
     }
 }

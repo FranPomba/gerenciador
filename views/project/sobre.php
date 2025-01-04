@@ -1,3 +1,6 @@
+{% extends 'base.php'%}
+
+{% block main%}
 {%
     set items = [
         {'href' : '#', 'src' : '/public/img/redes_sociais/github_git_icon_145985.ico', 'alt' :  'GitHub'},
@@ -26,3 +29,4 @@
         </div>
     </div>
 </section>
+{% endblock %}

@@ -1,10 +1,9 @@
 {% set items = [
     {'href': url('project'), 'texto': 'Projetos'},
-    {'href': '#', 'texto': 'GitHub'},
-    {'href': '#', 'texto': 'LinkedIn'},
-    {'href': '#', 'texto': 'Twitter'}
-    {'href': "#" texto: 'sobre-mim'}
-] %}
+    {'href': url('stacks/'), 'texto': 'Tecnologias'},
+    {'href': url('sobre-mim'), texto: 'sobre-mim'},
+] 
+%}
 
 <header class="mx-auto max-w-screen-lg items-center justify-between px-3 py-6 flex">
     <div class="font-bold text-xl text-cyan-600"><a href="{{url()}}">Meus Projetos</a></div>

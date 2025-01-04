@@ -2,26 +2,31 @@
 
 namespace controllers;
 
-use models\Stask;
+use Helpers;
+use model\Stack;
 
 class StackController extends Controller
 {
     public function __construct()
     {
-        parent::__construct('/views', false);
+        parent::__construct('views/', false);
     }
     public function index()
     {
-        $stacks = (new Stask())->getAll();
-        $this->render('/stack/index.php', ['stacks' => $stacks]);
+        $stacks = (new Stack())->getAll();
+        $this->render('stack/index.php', ['stacks' => $stacks]);
     }
-    public function create() {
-        if(isset($_POST['submit'])) {
+    public function create()
+    {
+        if (isset($_POST['submit'])) {
             $nome = $_POST['nome'] ?? null;
-            if(!$nome) {
+            if (!$nome) {
                 echo 'preencha o nome da tecnologia';
             }
-            $stack = (new Stask())->create($nome);
+            $stack = (new Stack())->create($nome);
+            Helpers::redirecionar('stacks');
+        } else {
+            $this->render('stack/create.php');
         }
     }
 }

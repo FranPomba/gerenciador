@@ -23,19 +23,29 @@
             <img src="{{ project.img }}" alt="Imagem do projeto" class="rounded-lg w-full">
         </div>
         {% endif %}
-    </div>
-    <div class="flex p-6 gap-5 items-center justify-items-start">
-        <div>
-            <a href="/project/{{ project.id }}/edit"
-                class="bg-cyan-600 hover:bg-cyan-700 text-white font-medium  p-1 rounded-md">Editar</a>
+        <div class="space-x-1">
+            {% for stack in stacks %}
+            <span class="bg-lime-600 rounded-md px-2 py-1 font-semibold text-xs">
+                {{ stack.nome }}
+            </span>
+            {% endfor %}
         </div>
-        <form action="/project/{{ project.id }}/delete"
+    </div>
+
+    <div class="flex gap-4 mt-6">
+        <a href="{{ url('project/' ~ project.id ~ '/edit') }}"
+            class="inline-flex bg-cyan-600 hover:bg-cyan-700 h-9 text-white font-medium py-2 px-4 rounded-md">
+            Editar
+        </a>
+        <form action="{{ url('project/' ~ project.id ~ '/delete') }}"
             method="post"
             onsubmit="return confirm('Tem certeza que deseja excluir este projeto?')">
-            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-medium p-1 rounded-md">
+            <button type="submit"
+                class="inline-flex bg-red-600 hover:bg-red-700 h-9 text-white font-medium py-2 px-4 rounded-md">
                 Excluir
             </button>
         </form>
     </div>
 </div>
+
 {% endblock %}

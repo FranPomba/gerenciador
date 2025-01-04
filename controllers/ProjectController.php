@@ -9,8 +9,8 @@ require_once __DIR__ . "/../models/Stack.php";
 use controllers\Controller;
 use Helpers;
 use model\Project;
-use model\ProjectStask;
-use model\Stask;
+use model\ProjectStack;
+use model\Stack;
 use PDOException;
 
 
@@ -24,8 +24,10 @@ class ProjectController extends Controller
     public function index()
     {
         $projeto = new Project();
-        $dados = $projeto->getProjects();
-        $this->render('project/index.php', ['projects' => $dados]);
+        $dados = $projeto->getAllProjects();
+        $stacks = (new ProjectStack())->getAll();
+        
+        $this->render('project/index.php', ['projects' => $dados, 'stacks' => $stacks]);
     }
 
     public function create()
@@ -108,7 +110,8 @@ class ProjectController extends Controller
     {
         try {
             $dados = (new Project())->get($id);
-            $this->render('/project/detail.php', ['project' => $dados]);
+            $stacks = (new ProjectStack())->getStacks($id);
+            $this->render('/project/detail.php', ['project' => $dados, 'stacks' => $stacks]);
         } catch (\PDOException $ex) {
             echo 'erro! ' . $ex->getMessage();
         }
@@ -125,7 +128,7 @@ class ProjectController extends Controller
     public function addStack($id)
     {
         $stacks = $_POST['tecnologias'];
-        $projStack = new ProjectStask();
+        $projStack = new ProjectStack();
         if (isset($_POST['submit']) and is_array($stacks)) {
             
             if (!empty($stacks)) {
@@ -135,12 +138,15 @@ class ProjectController extends Controller
                     }
                 }
             }
+            Helpers::redirecionar("project/$id");
         } else {
-            $stacks = (new Stask())->getAll();
+            $stacks = (new Stack())->getAll();
             $project = (new Project())->get($id);
             $list_stacks = array_map(fn($stack) => $stack['stack_id'], $projStack->getByProject($id));
-            var_dump($list_stacks);
-            $this->render("stack/index.php", ['project' => $project, 'stacks' => $stacks, 'list_stacks'=> $list_stacks]);
+            $this->render("stack/stacks.php", ['project' => $project, 'stacks' => $stacks, 'list_stacks'=> $list_stacks]);
         }
+    }
+    public function sobre(){
+        $this->render('project/sobre.php');
     }
 }
