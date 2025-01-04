@@ -31,22 +31,6 @@ Bem-vindo ao Gerenciador de Projetos, uma aplicação PHP para organizar e acomp
    ```bash
    composer install
    ```
-4. Crie o arquivo do banco de dados SQLite:
-   ```bash
-   touch database/database.sqlite
-   ```
-5. Configure o banco de dados no arquivo `config/database.php`:
-   ```php
-   return [
-       'driver' => 'sqlite',
-       'database' => __DIR__ . '/../database/database.sqlite',
-       'prefix' => '',
-   ];
-   ```
-6. Execute as migrações para criar as tabelas:
-   ```bash
-   php scripts/migrate.php
-   ```
 
 ## Uso
 
